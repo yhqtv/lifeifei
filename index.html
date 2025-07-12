@@ -1,27 +1,48 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <title>李菲菲的浪漫星空</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>李菲菲</title>
   <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
-      margin: 0;
-      padding: 0;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
-      background: #000;
-      color: white;
       font-family: 'ZCOOL KuaiLe', cursive;
+      background: #000;
+      color: #fff;
     }
-
-    canvas {
+    .slideshow {
       position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -2;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: -3;
+    }
+    .slideshow-image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: no-repeat center center;
+      background-size: cover;
+      animation: fadeZoom 24s infinite;
+      opacity: 0;
+    }
+    .slideshow-image:nth-child(1) { animation-delay: 0s; opacity: 1; }
+    .slideshow-image:nth-child(2) { animation-delay: 6s; }
+    .slideshow-image:nth-child(3) { animation-delay: 12s; }
+    .slideshow-image:nth-child(4) { animation-delay: 18s; }
+
+    @keyframes fadeZoom {
+      0% { opacity: 0; transform: scale(1.1); }
+      10% { opacity: 1; transform: scale(1.03); }
+      25% { opacity: 1; transform: scale(1.05); }
+      40% { opacity: 0; transform: scale(1.1); }
+      100% { opacity: 0; }
     }
 
     .center {
@@ -30,94 +51,79 @@
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
-      backdrop-filter: blur(10px);
-      padding: 40px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 0 20px rgba(255,255,255,0.2);
-      z-index: 10;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 30px 60px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+      z-index: 2;
     }
-
-    h1 {
+    .center h1 {
       font-size: 3em;
-      color: #ffecb3;
+      color: #ffd6d6;
+      margin-bottom: 20px;
     }
-
     .time {
       font-size: 1.5em;
-      margin-top: 10px;
+      color: #ffc0cb;
+      margin-bottom: 20px;
     }
-
     .typewriter {
-      margin-top: 30px;
       font-size: 1.2em;
       white-space: nowrap;
       overflow: hidden;
-      border-right: 3px solid rgba(255,255,255,0.75);
+      border-right: 3px solid #fff;
       animation: typing 6s steps(40, end), blink 0.75s step-end infinite;
       width: 0;
     }
-
     @keyframes typing {
       from { width: 0 }
       to { width: 100% }
     }
-
     @keyframes blink {
       50% { border-color: transparent; }
-    }
-
-    .stars {
-      position: fixed;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    .star, .heart {
-      position: absolute;
-      animation: float 10s linear infinite;
-      opacity: 0.6;
-    }
-
-    .star {
-      width: 6px;
-      height: 6px;
-      background: white;
-      border-radius: 50%;
     }
 
     .heart {
       width: 12px;
       height: 12px;
       background: pink;
+      position: fixed;
+      top: -20px;
+      border-radius: 50% 50% 0 0;
       transform: rotate(45deg);
+      animation: fall 10s linear infinite;
+      opacity: 0.8;
+      z-index: 1;
     }
-
-    .heart::before,
-    .heart::after {
-      content: "";
-      width: 12px;
-      height: 12px;
-      background: pink;
-      border-radius: 50%;
-      position: absolute;
-    }
-
-    .heart::before { top: -6px; left: 0; }
-    .heart::after { top: 0; left: -6px; }
-
-    @keyframes float {
+    @keyframes fall {
       0% {
-        transform: translateY(0);
+        transform: translateY(0) rotate(45deg);
         opacity: 1;
       }
       100% {
-        transform: translateY(-100vh);
+        transform: translateY(110vh) rotate(45deg);
         opacity: 0;
       }
+    }
+
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      overflow: hidden;
+      z-index: -2;
+    }
+    .stars div {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      animation: twinkle 2s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
     }
 
     audio {
@@ -126,98 +132,60 @@
   </style>
 </head>
 <body>
+  <div class="slideshow">
+    <div class="slideshow-image" style="background-image: url('images/1.jpg')"></div>
+    <div class="slideshow-image" style="background-image: url('images/2.jpg')"></div>
+    <div class="slideshow-image" style="background-image: url('images/3.jpg')"></div>
+    <div class="slideshow-image" style="background-image: url('images/4.jpg')"></div>
+    <div class="slideshow-image" style="background-image: url('images/5.jpg')"></div>
+    <div class="slideshow-image" style="background-image: url('images/6.jpg')"></div>
+  </div>
 
-<canvas id="bg"></canvas>
+  <div class="stars" id="star-container"></div>
 
-<div class="center">
-  <h1>李菲菲</h1>
-  <div class="time">正在计算天数...</div>
-  <div class="typewriter">你知道吗？自从遇见你，平凡的日子也开始发光。</div>
-</div>
+  <div class="center">
+    <h1>李菲菲</h1>
+    <div class="time">正在计算...</div>
+    <div class="typewriter">遇见你，是我今生最浪漫的幸运。</div>
+  </div>
 
-<audio id="bgm" autoplay loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/08/22/audio_342f3434a2.mp3" type="audio/mpeg">
-</audio>
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/08/22/audio_342f3434a2.mp3" type="audio/mpeg">
+  </audio>
 
-<div class="stars" id="particles"></div>
+  <script>
+    const starttime = new Date("2007/03/08");
+    setInterval(() => {
+      const now = new Date();
+      const diff = now - starttime;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
+      document.querySelector('.time').innerHTML = `${days}天 ${hours}时 ${mins}分 ${secs}秒`;
+    }, 1000);
 
-<script>
-  // 日期计时器
-  var starttime = new Date("2007/03/08");
-  setInterval(function () {
-    var nowtime = new Date();
-    var time = starttime - nowtime;
-    var day = -parseInt(time / 1000 / 60 / 60 / 24);
-    var hour = parseInt(time / 1000 / 60 / 60 % 24 + 22);
-    var minute = parseInt(time / 1000 / 60 % 60);
-    var seconds = parseInt(time / 1000 % 60);
-    document.querySelector('.time').innerHTML = `${day} 天 ${hour} 时 ${minute} 分 ${seconds} 秒`;
-  }, 1000);
-
-  // 爱心+星星粒子
-  function createParticles() {
-    const container = document.getElementById('particles');
-    for (let i = 0; i < 30; i++) {
-      let el = document.createElement('div');
-      el.className = (Math.random() > 0.5 ? 'star' : 'heart');
-      el.style.left = Math.random() * 100 + 'vw';
-      el.style.top = Math.random() * 100 + 'vh';
-      el.style.animationDuration = 5 + Math.random() * 5 + 's';
-      el.style.opacity = Math.random();
-      container.appendChild(el);
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 5 + Math.random() * 5 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 10000);
     }
-  }
-  createParticles();
+    setInterval(createHeart, 300);
 
-  // 星空背景
-  const canvas = document.getElementById("bg");
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  const stars = [];
-
-  for (let i = 0; i < 100; i++) {
-    stars.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 1.5,
-      d: Math.random() * 0.5
-    });
-  }
-
-  function drawStars() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "white";
-    ctx.beginPath();
-    for (let i = 0; i < stars.length; i++) {
-      const s = stars[i];
-      ctx.moveTo(s.x, s.y);
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2, true);
+    function createStars(count = 100) {
+      const container = document.getElementById('star-container');
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        container.appendChild(star);
+      }
     }
-    ctx.fill();
-    updateStars();
-  }
-
-  function updateStars() {
-    for (let i = 0; i < stars.length; i++) {
-      const s = stars[i];
-      s.y -= s.d;
-      if (s.y < 0) s.y = canvas.height;
-    }
-  }
-
-  setInterval(drawStars, 30);
-
-  // 首次进入弹出祝福
-  setTimeout(() => {
-    Swal.fire({
-      title: '❤️ 纪念日小礼物',
-      text: '感谢你一直在我身边，从2007年到现在，我会一直爱你。',
-      icon: 'info',
-      confirmButtonText: '我也爱你'
-    });
-  }, 1000);
-</script>
-
+    createStars();
+  </script>
 </body>
 </html>
