@@ -1,235 +1,163 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>李菲菲</title>
-<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-<script>
-  var starttime = new Date("2007/03/08"); // 你们在一起的时间
-  setInterval(function() {
-    var nowtime = new Date();
-    var time = starttime - nowtime;
-    var day = -parseInt(time / 1000 / 60 / 60 / 24);
-    var hour = parseInt(time / 1000 / 60 / 60 % 24 + 22);
-    var minute = parseInt(time / 1000 / 60 % 60);
-    var seconds = parseInt(time / 1000 % 60);
-    $(".time").css({
-      "font-size": "18px",
-      color: "#ff6699",
-      "font-weight": "600",
-      "letter-spacing": "1.5px",
-      "text-shadow": "0 0 8px #ff66cc"
-    });
-    $('.time').html(day + "天 " + hour + "时 " + minute + "分 " + seconds + "秒");
-  }, 1000); // 1秒更新一次，改成1000毫秒更合理
-</script>
-<style type="text/css">
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body, html {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  font-family: 'Raleway', sans-serif;
-  background: #000;
-  color: #fff;
-}
-
-.slideshow {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  top: 0;
-  left: 0;
-  z-index: 0;
-}
-
-.slideshow-image {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: no-repeat 50% 50%;
-  background-size: cover;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-duration: 16s;
-  opacity: 1;
-  transform: scale(1.2);
-  will-change: transform, opacity;
-}
-
-/* 保持原 Ken Burns 动画名称和层级不变 */
-.slideshow-image:nth-child(1) {
-  animation-name: kenburns-1;
-  z-index: 3;
-}
-.slideshow-image:nth-child(2) {
-  animation-name: kenburns-2;
-  z-index: 2;
-}
-.slideshow-image:nth-child(3) {
-  animation-name: kenburns-3;
-  z-index: 1;
-}
-.slideshow-image:nth-child(4) {
-  animation-name: kenburns-4;
-  z-index: 0;
-}
-
-/* Ken Burns 关键帧保持不变 */
-@keyframes kenburns-1 {
-  0% {
-    opacity: 1;
-    transform: scale(1.2);
+<meta charset="utf-8" />
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>李菲菲 - 浪漫背景轮播</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
-  1.5625% {
-    opacity: 1;
+  html, body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+    font-family: 'ZCOOL KuaiLe', cursive, sans-serif;
+    color: #fff;
+    user-select: none;
   }
-  23.4375% {
-    opacity: 1;
+
+  .slideshow {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 0;
   }
-  26.5625% {
+
+  .slideshow-image {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 18s;
     opacity: 0;
-    transform: scale(1);
+    transform: translateY(-20px) scale(1);
+    will-change: transform, opacity;
   }
-  98.4375% {
-    opacity: 0;
-    transform: scale(1.21176);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-}
-@keyframes kenburns-2 {
-  23.4375% {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-  26.5625% {
-    opacity: 1;
-  }
-  48.4375% {
-    opacity: 1;
-  }
-  51.5625% {
-    opacity: 0;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.2);
-  }
-}
-@keyframes kenburns-3 {
-  48.4375% {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-  51.5625% {
-    opacity: 1;
-  }
-  73.4375% {
-    opacity: 1;
-  }
-  76.5625% {
-    opacity: 0;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.2);
-  }
-}
-@keyframes kenburns-4 {
-  73.4375% {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-  76.5625% {
-    opacity: 1;
-  }
-  98.4375% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1);
-  }
-}
 
-/* 美化文字容器 */
-h1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate3d(-50%, -50%, 0);
-  z-index: 99;
-  text-align: center;
-  font-family: 'ZCOOL KuaiLe', cursive;
-  font-weight: 700;
-  font-size: 48px;
-  color: #fff;
-  background: rgba(255, 20, 147, 0.3);
-  padding: 25px 100px;
-  border-radius: 20px;
-  box-shadow:
-    0 0 15px rgba(255, 20, 147, 0.7),
-    0 0 40px rgba(255, 20, 147, 0.4);
-  user-select: none;
-  letter-spacing: 4px;
-  text-shadow:
-    0 0 6px #ff3399,
-    0 0 10px #ff3399;
-}
+  /* 六张图错开3秒依次播放 */
+  .slideshow-image:nth-child(1) {
+    animation-name: floatfade;
+    animation-delay: 0s;
+    z-index: 6;
+  }
+  .slideshow-image:nth-child(2) {
+    animation-name: floatfade;
+    animation-delay: 3s;
+    z-index: 5;
+  }
+  .slideshow-image:nth-child(3) {
+    animation-name: floatfade;
+    animation-delay: 6s;
+    z-index: 4;
+  }
+  .slideshow-image:nth-child(4) {
+    animation-name: floatfade;
+    animation-delay: 9s;
+    z-index: 3;
+  }
+  .slideshow-image:nth-child(5) {
+    animation-name: floatfade;
+    animation-delay: 12s;
+    z-index: 2;
+  }
+  .slideshow-image:nth-child(6) {
+    animation-name: floatfade;
+    animation-delay: 15s;
+    z-index: 1;
+  }
 
-h1 small {
-  display: block;
-  font-size: 14px;
-  font-weight: 400;
-  margin-top: 8px;
-  color: #ffc0cb;
-  text-shadow: none;
-}
+  @keyframes floatfade {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px) scale(1);
+    }
+    16.66% {
+      opacity: 1;
+      transform: translateY(0) scale(1.05);
+    }
+    33.33% {
+      opacity: 0;
+      transform: translateY(20px) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(20px) scale(1);
+    }
+  }
 
-/* 时间样式优化 */
-.time {
-  margin-top: -35px;
-  font-size: 18px;
-  color: #ff6699;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-shadow: 0 0 8px #ff66cc;
-}
+  /* 文字容器 */
+  h1 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    z-index: 10;
+    font-size: 48px;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(255, 20, 147, 0.3);
+    padding: 25px 100px;
+    border-radius: 20px;
+    box-shadow:
+      0 0 15px rgba(255, 20, 147, 0.7),
+      0 0 40px rgba(255, 20, 147, 0.4);
+    letter-spacing: 4px;
+    text-shadow:
+      0 0 6px #ff3399,
+      0 0 10px #ff3399;
+    user-select: none;
+    text-align: center;
+  }
+  h1 .time {
+    margin-top: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #ff6699;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 8px #ff66cc;
+  }
 </style>
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script>
+  $(function () {
+    const starttime = new Date("2007/03/08");
+    setInterval(() => {
+      const nowtime = new Date();
+      const diff = nowtime - starttime;
+      const day = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hour = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minute = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      $(".time").text(`${day}天 ${hour}时 ${minute}分 ${seconds}秒`);
+    }, 1000);
+  });
+</script>
 </head>
 <body>
 
-<!--
-这都被你发现啦，，，爱你❤
--->
-
-<h1>
-  <div class="wrap">
-    <div class="one">李菲菲：</div><br>
-    <div class="time"></div>
-  </div>
-</h1>
-
 <div class="slideshow">
-  <div class="slideshow-image" style="background-image: url('images/1.jpg')"></div><!-- 图片路径 -->
+  <div class="slideshow-image" style="background-image: url('images/1.jpg')"></div>
   <div class="slideshow-image" style="background-image: url('images/2.jpg')"></div>
   <div class="slideshow-image" style="background-image: url('images/3.jpg')"></div>
   <div class="slideshow-image" style="background-image: url('images/4.jpg')"></div>
   <div class="slideshow-image" style="background-image: url('images/5.jpg')"></div>
   <div class="slideshow-image" style="background-image: url('images/6.jpg')"></div>
 </div>
+
+<h1>
+  李菲菲<br />
+  <div class="time"></div>
+</h1>
 
 </body>
 </html>
