@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>李菲菲</title>
-  <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
       width: 100vw;
       height: 100vh;
       overflow: hidden;
@@ -22,13 +27,16 @@
       width: 100vw;
       height: 100vh;
       z-index: -3;
+      top: 0;
+      left: 0;
     }
 
     .slideshow-image {
       position: absolute;
       width: 100%;
       height: 100%;
-      background: no-repeat center center;
+      background-position: center;
+      background-repeat: no-repeat;
       background-size: cover;
       opacity: 0;
       transition: opacity 2s ease-in-out;
@@ -36,6 +44,7 @@
 
     .slideshow-image.active {
       opacity: 1;
+      z-index: 1;
     }
 
     .center {
@@ -48,7 +57,7 @@
       padding: 30px 60px;
       border-radius: 20px;
       box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-      z-index: 2;
+      z-index: 10;
     }
 
     .center h1 {
@@ -69,74 +78,38 @@
       overflow: hidden;
       border-right: 3px solid #fff;
       animation: typing 6s steps(40, end), blink 0.75s step-end infinite;
-      width: 0;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
     }
 
     @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
+      from {
+        width: 0;
+      }
+
+      to {
+        width: 100%;
+      }
     }
 
     @keyframes blink {
-      50% { border-color: transparent; }
-    }
-
-    .heart {
-      width: 12px;
-      height: 12px;
-      background: pink;
-      position: fixed;
-      top: -20px;
-      border-radius: 50% 50% 0 0;
-      transform: rotate(45deg);
-      animation: fall 10s linear infinite;
-      opacity: 0.8;
-      z-index: 1;
-    }
-
-    @keyframes fall {
-      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
-      100% { transform: translateY(110vh) rotate(45deg); opacity: 0; }
-    }
-
-    .stars {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: transparent;
-      overflow: hidden;
-      z-index: -2;
-    }
-
-    .stars div {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: white;
-      animation: twinkle 2s infinite ease-in-out;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 1; }
-    }
-
-    audio {
-      display: none;
+      50% {
+        border-color: transparent;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="slideshow">
-    <div class="slideshow-image" style="background-image: url('images/1.jpg')"></div>
-    <div class="slideshow-image" style="background-image: url('images/2.jpg')"></div>
-    <div class="slideshow-image" style="background-image: url('images/3.jpg')"></div>
-    <div class="slideshow-image" style="background-image: url('images/4.jpg')"></div>
-    <div class="slideshow-image" style="background-image: url('images/5.jpg')"></div>
-    <div class="slideshow-image" style="background-image: url('images/6.jpg')"></div>
+    <div class="slideshow-image active" style="background-image: url('images/1.jpg');"></div>
+    <div class="slideshow-image" style="background-image: url('images/2.jpg');"></div>
+    <div class="slideshow-image" style="background-image: url('images/3.jpg');"></div>
+    <div class="slideshow-image" style="background-image: url('images/4.jpg');"></div>
+    <div class="slideshow-image" style="background-image: url('images/5.jpg');"></div>
+    <div class="slideshow-image" style="background-image: url('images/6.jpg');"></div>
   </div>
-
-  <div class="stars" id="star-container"></div>
 
   <div class="center">
     <h1>李菲菲</h1>
@@ -144,13 +117,8 @@
     <div class="typewriter">遇见你，是我今生最浪漫的幸运。</div>
   </div>
 
-  <audio autoplay loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/08/22/audio_342f3434a2.mp3" type="audio/mpeg">
-  </audio>
-
   <script>
-    // 计时器
-    const starttime = new Date("2007/03/08");
+    const starttime = new Date('2007/03/08');
     setInterval(() => {
       const now = new Date();
       const diff = now - starttime;
@@ -158,46 +126,17 @@
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const mins = Math.floor((diff / (1000 * 60)) % 60);
       const secs = Math.floor((diff / 1000) % 60);
-      document.querySelector('.time').innerHTML = `${days}天 ${hours}时 ${mins}分 ${secs}秒`;
+      document.querySelector('.time').textContent = `${days}天 ${hours}时 ${mins}分 ${secs}秒`;
     }, 1000);
 
-    // 星星
-    function createStars(count = 100) {
-      const container = document.getElementById('star-container');
-      for (let i = 0; i < count; i++) {
-        const star = document.createElement('div');
-        star.style.left = Math.random() * 100 + 'vw';
-        star.style.top = Math.random() * 100 + 'vh';
-        star.style.animationDuration = (Math.random() * 3 + 2) + 's';
-        container.appendChild(star);
-      }
-    }
-    createStars();
-
-    // 小爱心飘落
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = 5 + Math.random() * 5 + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 10000);
-    }
-    setInterval(createHeart, 300);
-
-    // 背景图轮播
-    const slides = document.querySelectorAll(".slideshow-image");
+    // 轮播逻辑
+    const slides = document.querySelectorAll('.slideshow-image');
     let currentIndex = 0;
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.toggle("active", i === index);
-      });
-    }
     setInterval(() => {
+      slides[currentIndex].classList.remove('active');
       currentIndex = (currentIndex + 1) % slides.length;
-      showSlide(currentIndex);
-    }, 5000); // 每5秒切换
-    showSlide(0);
+      slides[currentIndex].classList.add('active');
+    }, 5000); // 5秒切换一次
   </script>
 </body>
 </html>
