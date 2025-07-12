@@ -87,40 +87,35 @@
       $(".time").text(`${day}天 ${hour}时 ${minute}分 ${seconds}秒`);
     }, 1000);
 
-    // 图片元素
     const $imgs = $(".background-wall div");
     const usedPositions = [];
 
     $imgs.each(function (index, el) {
-      // 随机宽高（视口宽高的20%-40%）
       const width = randomRange(20, 40);  // vw
       const height = randomRange(25, 45); // vh
 
-      // 随机位置，确保不超出屏幕
-      // 为了简单，生成一个位置，再检测是否与之前重叠太多，避免完全遮挡
       let top, left;
       let attempts = 0;
+
       do {
         top = randomRange(5, 70);
         left = randomRange(5, 70);
         attempts++;
       } while (
         usedPositions.some(pos => {
-          // 简单判断两个矩形是否重叠超过一定比例
           const overlapX = Math.max(0, Math.min(left + width, pos.left + pos.width) - Math.max(left, pos.left));
           const overlapY = Math.max(0, Math.min(top + height, pos.top + pos.height) - Math.max(top, pos.top));
           const overlapArea = overlapX * overlapY;
           const area1 = width * height;
           const area2 = pos.width * pos.height;
-          return overlapArea > Math.min(area1, area2) * 0.5; // 重叠超过50%认为冲突
-        }) && attempts < 20);
+          // 这里重叠面积比例调整为不超过0.2
+          return overlapArea > Math.min(area1, area2) * 0.2;
+        }) && attempts < 30 // 尝试30次避免死循环
+      );
 
       usedPositions.push({top, left, width, height});
-
-      // 随机旋转角度 -10° 到 +10°
       const rotate = randomRange(-10, 10);
 
-      // 应用样式
       $(el).css({
         top: top + "vh",
         left: left + "vw",
