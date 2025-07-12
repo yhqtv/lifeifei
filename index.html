@@ -1,142 +1,235 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>李菲菲</title>
-  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>李菲菲</title>
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+  var starttime = new Date("2007/03/08"); // 你们在一起的时间
+  setInterval(function() {
+    var nowtime = new Date();
+    var time = starttime - nowtime;
+    var day = -parseInt(time / 1000 / 60 / 60 / 24);
+    var hour = parseInt(time / 1000 / 60 / 60 % 24 + 22);
+    var minute = parseInt(time / 1000 / 60 % 60);
+    var seconds = parseInt(time / 1000 % 60);
+    $(".time").css({
+      "font-size": "18px",
+      color: "#ff6699",
+      "font-weight": "600",
+      "letter-spacing": "1.5px",
+      "text-shadow": "0 0 8px #ff66cc"
+    });
+    $('.time').html(day + "天 " + hour + "时 " + minute + "分 " + seconds + "秒");
+  }, 1000); // 1秒更新一次，改成1000毫秒更合理
+</script>
+<style type="text/css">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    html,
-    body {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      font-family: 'ZCOOL KuaiLe', cursive;
-      background: #000;
-      color: #fff;
-    }
+body, html {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Raleway', sans-serif;
+  background: #000;
+  color: #fff;
+}
 
-    .slideshow {
-      position: fixed;
-      width: 100vw;
-      height: 100vh;
-      z-index: -3;
-      top: 0;
-      left: 0;
-    }
+.slideshow {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
 
-    .slideshow-image {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      opacity: 0;
-      transition: opacity 2s ease-in-out;
-    }
+.slideshow-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: no-repeat 50% 50%;
+  background-size: cover;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: 16s;
+  opacity: 1;
+  transform: scale(1.2);
+  will-change: transform, opacity;
+}
 
-    .slideshow-image.active {
-      opacity: 1;
-      z-index: 1;
-    }
+/* 保持原 Ken Burns 动画名称和层级不变 */
+.slideshow-image:nth-child(1) {
+  animation-name: kenburns-1;
+  z-index: 3;
+}
+.slideshow-image:nth-child(2) {
+  animation-name: kenburns-2;
+  z-index: 2;
+}
+.slideshow-image:nth-child(3) {
+  animation-name: kenburns-3;
+  z-index: 1;
+}
+.slideshow-image:nth-child(4) {
+  animation-name: kenburns-4;
+  z-index: 0;
+}
 
-    .center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 30px 60px;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-      z-index: 10;
-    }
+/* Ken Burns 关键帧保持不变 */
+@keyframes kenburns-1 {
+  0% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  1.5625% {
+    opacity: 1;
+  }
+  23.4375% {
+    opacity: 1;
+  }
+  26.5625% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  98.4375% {
+    opacity: 0;
+    transform: scale(1.21176);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+@keyframes kenburns-2 {
+  23.4375% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  26.5625% {
+    opacity: 1;
+  }
+  48.4375% {
+    opacity: 1;
+  }
+  51.5625% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+@keyframes kenburns-3 {
+  48.4375% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  51.5625% {
+    opacity: 1;
+  }
+  73.4375% {
+    opacity: 1;
+  }
+  76.5625% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+@keyframes kenburns-4 {
+  73.4375% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  76.5625% {
+    opacity: 1;
+  }
+  98.4375% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
 
-    .center h1 {
-      font-size: 3em;
-      color: #ffd6d6;
-      margin-bottom: 20px;
-    }
+/* 美化文字容器 */
+h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  z-index: 99;
+  text-align: center;
+  font-family: 'ZCOOL KuaiLe', cursive;
+  font-weight: 700;
+  font-size: 48px;
+  color: #fff;
+  background: rgba(255, 20, 147, 0.3);
+  padding: 25px 100px;
+  border-radius: 20px;
+  box-shadow:
+    0 0 15px rgba(255, 20, 147, 0.7),
+    0 0 40px rgba(255, 20, 147, 0.4);
+  user-select: none;
+  letter-spacing: 4px;
+  text-shadow:
+    0 0 6px #ff3399,
+    0 0 10px #ff3399;
+}
 
-    .time {
-      font-size: 1.5em;
-      color: #ffc0cb;
-      margin-bottom: 20px;
-    }
+h1 small {
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 8px;
+  color: #ffc0cb;
+  text-shadow: none;
+}
 
-    .typewriter {
-      font-size: 1.2em;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 3px solid #fff;
-      animation: typing 6s steps(40, end), blink 0.75s step-end infinite;
-      width: 100%;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    @keyframes typing {
-      from {
-        width: 0;
-      }
-
-      to {
-        width: 100%;
-      }
-    }
-
-    @keyframes blink {
-      50% {
-        border-color: transparent;
-      }
-    }
-  </style>
+/* 时间样式优化 */
+.time {
+  margin-top: -35px;
+  font-size: 18px;
+  color: #ff6699;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 8px #ff66cc;
+}
+</style>
 </head>
-
 <body>
-  <div class="slideshow">
-    <div class="slideshow-image active" style="background-image: url('images/1.jpg');"></div>
-    <div class="slideshow-image" style="background-image: url('images/2.jpg');"></div>
-    <div class="slideshow-image" style="background-image: url('images/3.jpg');"></div>
-    <div class="slideshow-image" style="background-image: url('images/4.jpg');"></div>
-    <div class="slideshow-image" style="background-image: url('images/5.jpg');"></div>
-    <div class="slideshow-image" style="background-image: url('images/6.jpg');"></div>
+
+<!--
+这都被你发现啦，，，爱你❤
+-->
+
+<h1>
+  <div class="wrap">
+    <div class="one">李菲菲：</div><br>
+    <div class="time"></div>
   </div>
+</h1>
 
-  <div class="center">
-    <h1>李菲菲</h1>
-    <div class="time">正在计算...</div>
-    <div class="typewriter">遇见你，是我今生最浪漫的幸运。</div>
-  </div>
+<div class="slideshow">
+  <div class="slideshow-image" style="background-image: url('images/1.jpg')"></div><!-- 图片路径 -->
+  <div class="slideshow-image" style="background-image: url('images/2.jpg')"></div>
+  <div class="slideshow-image" style="background-image: url('images/3.jpg')"></div>
+  <div class="slideshow-image" style="background-image: url('images/4.jpg')"></div>
+  <div class="slideshow-image" style="background-image: url('images/5.jpg')"></div>
+  <div class="slideshow-image" style="background-image: url('images/6.jpg')"></div>
+</div>
 
-  <script>
-    const starttime = new Date('2007/03/08');
-    setInterval(() => {
-      const now = new Date();
-      const diff = now - starttime;
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const mins = Math.floor((diff / (1000 * 60)) % 60);
-      const secs = Math.floor((diff / 1000) % 60);
-      document.querySelector('.time').textContent = `${days}天 ${hours}时 ${mins}分 ${secs}秒`;
-    }, 1000);
-
-    // 轮播逻辑
-    const slides = document.querySelectorAll('.slideshow-image');
-    let currentIndex = 0;
-    setInterval(() => {
-      slides[currentIndex].classList.remove('active');
-      currentIndex = (currentIndex + 1) % slides.length;
-      slides[currentIndex].classList.add('active');
-    }, 5000); // 5秒切换一次
-  </script>
 </body>
 </html>
