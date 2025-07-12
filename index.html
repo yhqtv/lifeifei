@@ -21,7 +21,6 @@
       position: fixed;
       width: 100vw;
       height: 100vh;
-      overflow: hidden;
       z-index: -3;
     }
 
@@ -32,56 +31,11 @@
       background: no-repeat center center;
       background-size: cover;
       opacity: 0;
-      animation-timing-function: ease-in-out;
-      animation-iteration-count: infinite;
-      animation-duration: 36s;
+      transition: opacity 2s ease-in-out;
     }
 
-    .slideshow-image:nth-child(1) { animation-name: fadeZoom-1; }
-    .slideshow-image:nth-child(2) { animation-name: fadeZoom-2; }
-    .slideshow-image:nth-child(3) { animation-name: fadeZoom-3; }
-    .slideshow-image:nth-child(4) { animation-name: fadeZoom-4; }
-    .slideshow-image:nth-child(5) { animation-name: fadeZoom-5; }
-    .slideshow-image:nth-child(6) { animation-name: fadeZoom-6; }
-
-    @keyframes fadeZoom-1 {
-      0% { opacity: 1; transform: scale(1.1); }
-      16.66% { opacity: 1; transform: scale(1.03); }
-      19% { opacity: 0; }
-      100% { opacity: 0; }
-    }
-    @keyframes fadeZoom-2 {
-      0%, 16.66% { opacity: 0; }
-      16.66% { opacity: 1; transform: scale(1.1); }
-      33.32% { opacity: 1; transform: scale(1.03); }
-      36% { opacity: 0; }
-      100% { opacity: 0; }
-    }
-    @keyframes fadeZoom-3 {
-      0%, 33.32% { opacity: 0; }
-      33.32% { opacity: 1; transform: scale(1.1); }
-      49.98% { opacity: 1; transform: scale(1.03); }
-      52% { opacity: 0; }
-      100% { opacity: 0; }
-    }
-    @keyframes fadeZoom-4 {
-      0%, 49.98% { opacity: 0; }
-      49.98% { opacity: 1; transform: scale(1.1); }
-      66.64% { opacity: 1; transform: scale(1.03); }
-      69% { opacity: 0; }
-      100% { opacity: 0; }
-    }
-    @keyframes fadeZoom-5 {
-      0%, 66.64% { opacity: 0; }
-      66.64% { opacity: 1; transform: scale(1.1); }
-      83.3% { opacity: 1; transform: scale(1.03); }
-      86% { opacity: 0; }
-      100% { opacity: 0; }
-    }
-    @keyframes fadeZoom-6 {
-      0%, 83.3% { opacity: 0; }
-      83.3% { opacity: 1; transform: scale(1.1); }
-      100% { opacity: 1; transform: scale(1.03); }
+    .slideshow-image.active {
+      opacity: 1;
     }
 
     .center {
@@ -195,6 +149,7 @@
   </audio>
 
   <script>
+    // 计时器
     const starttime = new Date("2007/03/08");
     setInterval(() => {
       const now = new Date();
@@ -206,16 +161,7 @@
       document.querySelector('.time').innerHTML = `${days}天 ${hours}时 ${mins}分 ${secs}秒`;
     }, 1000);
 
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = 5 + Math.random() * 5 + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 10000);
-    }
-    setInterval(createHeart, 300);
-
+    // 星星
     function createStars(count = 100) {
       const container = document.getElementById('star-container');
       for (let i = 0; i < count; i++) {
@@ -227,6 +173,31 @@
       }
     }
     createStars();
+
+    // 小爱心飘落
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 5 + Math.random() * 5 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 10000);
+    }
+    setInterval(createHeart, 300);
+
+    // 背景图轮播
+    const slides = document.querySelectorAll(".slideshow-image");
+    let currentIndex = 0;
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === index);
+      });
+    }
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+    }, 5000); // 每5秒切换
+    showSlide(0);
   </script>
 </body>
 </html>
