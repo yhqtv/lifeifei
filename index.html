@@ -2,97 +2,40 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>李菲菲 - 浪漫背景轮播</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>李菲菲 - 背景墙</title>
 <style>
   * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0; padding: 0; box-sizing: border-box;
   }
   html, body {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background: #000;
+    width: 100vw; height: 100vh;
     font-family: 'ZCOOL KuaiLe', cursive, sans-serif;
-    color: #fff;
+    background: #000;
+    overflow: hidden;
     user-select: none;
+    position: relative;
+    color: #fff;
   }
 
-  .slideshow {
+  /* 背景墙容器 */
+  .background-wall {
     position: fixed;
     top: 0; left: 0;
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0;
     z-index: 0;
   }
 
-  .slideshow-image {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    background-repeat: no-repeat;
-    background-position: center center;
+  /* 每张背景图 */
+  .background-wall div {
+    background-position: center;
     background-size: cover;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-duration: 18s;
-    opacity: 0;
-    transform: translateY(-20px) scale(1);
-    will-change: transform, opacity;
-  }
-
-  /* 六张图错开3秒依次播放 */
-  .slideshow-image:nth-child(1) {
-    animation-name: floatfade;
-    animation-delay: 0s;
-    z-index: 6;
-  }
-  .slideshow-image:nth-child(2) {
-    animation-name: floatfade;
-    animation-delay: 3s;
-    z-index: 5;
-  }
-  .slideshow-image:nth-child(3) {
-    animation-name: floatfade;
-    animation-delay: 6s;
-    z-index: 4;
-  }
-  .slideshow-image:nth-child(4) {
-    animation-name: floatfade;
-    animation-delay: 9s;
-    z-index: 3;
-  }
-  .slideshow-image:nth-child(5) {
-    animation-name: floatfade;
-    animation-delay: 12s;
-    z-index: 2;
-  }
-  .slideshow-image:nth-child(6) {
-    animation-name: floatfade;
-    animation-delay: 15s;
-    z-index: 1;
-  }
-
-  @keyframes floatfade {
-    0% {
-      opacity: 0;
-      transform: translateY(-20px) scale(1);
-    }
-    16.66% {
-      opacity: 1;
-      transform: translateY(0) scale(1.05);
-    }
-    33.33% {
-      opacity: 0;
-      transform: translateY(20px) scale(1);
-    }
-    100% {
-      opacity: 0;
-      transform: translateY(20px) scale(1);
-    }
+    background-repeat: no-repeat;
   }
 
   /* 文字容器 */
@@ -115,8 +58,8 @@
     text-shadow:
       0 0 6px #ff3399,
       0 0 10px #ff3399;
-    user-select: none;
     text-align: center;
+    user-select: none;
   }
   h1 .time {
     margin-top: 12px;
@@ -145,13 +88,13 @@
 </head>
 <body>
 
-<div class="slideshow">
-  <div class="slideshow-image" style="background-image: url('images/1.jpg')"></div>
-  <div class="slideshow-image" style="background-image: url('images/2.jpg')"></div>
-  <div class="slideshow-image" style="background-image: url('images/3.jpg')"></div>
-  <div class="slideshow-image" style="background-image: url('images/4.jpg')"></div>
-  <div class="slideshow-image" style="background-image: url('images/5.jpg')"></div>
-  <div class="slideshow-image" style="background-image: url('images/6.jpg')"></div>
+<div class="background-wall">
+  <div style="background-image: url('images/1.jpg');"></div>
+  <div style="background-image: url('images/2.jpg');"></div>
+  <div style="background-image: url('images/3.jpg');"></div>
+  <div style="background-image: url('images/4.jpg');"></div>
+  <div style="background-image: url('images/5.jpg');"></div>
+  <div style="background-image: url('images/6.jpg');"></div>
 </div>
 
 <h1>
