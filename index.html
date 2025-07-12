@@ -1,337 +1,223 @@
-
- <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-<title></title>
-<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-	<script>
-	 
-		  var starttime = new Date("2007/03/08");//这里修改你们在一起的时间
-				
-				 setInterval(function() {
-					 var nowtime = new Date();
-					 var time = starttime - nowtime;
-					 var day = -parseInt(time / 1000 / 60 / 60 / 24);
-					 var hour = parseInt(time / 1000 / 60 / 60 % 24 +22);
-					 var minute = parseInt(time / 1000 / 60 % 60);
-					 var seconds = parseInt(time / 1000 % 60);
-					 $(".time").css({"font-size":"16px"}) 
-					 $(".time").css({color:"red"}) 
-					 $('.time').html(day + "天" + hour + "时" + minute + "分" + seconds + "秒");
-				 }, 20);
-					
-	 
-	</script>
-<style type="text/css">
-*{margin:0;padding:0;}
+  <meta charset="UTF-8" />
+  <title>李菲菲的浪漫星空</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #000;
+      color: white;
+      font-family: 'ZCOOL KuaiLe', cursive;
+    }
 
-.slideshow {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -2;
+    }
 
-.slideshow-image {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: no-repeat 50% 50%;
-  background-size: cover;
-  -webkit-animation-name: kenburns;
-          animation-name: kenburns;
-  -webkit-animation-timing-function: linear;
-          animation-timing-function: linear;
-  -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
-  -webkit-animation-duration: 16s;
-          animation-duration: 16s;
-  opacity: 1;
-  -webkit-transform: scale(1.2);
-          transform: scale(1.2);
-}
-.slideshow-image:nth-child(1) {
-  -webkit-animation-name: kenburns-1;
-          animation-name: kenburns-1;
-  z-index: 3;
-}
-.slideshow-image:nth-child(2) {
-  -webkit-animation-name: kenburns-2;
-          animation-name: kenburns-2;
-  z-index: 2;
-}
-.slideshow-image:nth-child(3) {
-  -webkit-animation-name: kenburns-3;
-          animation-name: kenburns-3;
-  z-index: 1;
-}
-.slideshow-image:nth-child(4) {
-  -webkit-animation-name: kenburns-4;
-          animation-name: kenburns-4;
-  z-index: 0;
-}
+    .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      z-index: 10;
+    }
 
-@-webkit-keyframes kenburns-1 {
-  0% {
-    opacity: 1;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-  1.5625% {
-    opacity: 1;
-  }
-  23.4375% {
-    opacity: 1;
-  }
-  26.5625% {
-    opacity: 0;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-  98.4375% {
-    opacity: 0;
-    -webkit-transform: scale(1.21176);
-            transform: scale(1.21176);
-  }
-  100% {
-    opacity: 1;
-  }
-}
+    h1 {
+      font-size: 3em;
+      color: #ffecb3;
+    }
 
-@keyframes kenburns-1 {
-  0% {
-    opacity: 1;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-  1.5625% {
-    opacity: 1;
-  }
-  23.4375% {
-    opacity: 1;
-  }
-  26.5625% {
-    opacity: 0;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-  98.4375% {
-    opacity: 0;
-    -webkit-transform: scale(1.21176);
-            transform: scale(1.21176);
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@-webkit-keyframes kenburns-2 {
-  23.4375% {
-    opacity: 1;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-  26.5625% {
-    opacity: 1;
-  }
-  48.4375% {
-    opacity: 1;
-  }
-  51.5625% {
-    opacity: 0;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-}
-@keyframes kenburns-2 {
-  23.4375% {
-    opacity: 1;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-  26.5625% {
-    opacity: 1;
-  }
-  48.4375% {
-    opacity: 1;
-  }
-  51.5625% {
-    opacity: 0;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-}
-@-webkit-keyframes kenburns-3 {
-  48.4375% {
-    opacity: 1;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-  51.5625% {
-    opacity: 1;
-  }
-  73.4375% {
-    opacity: 1;
-  }
-  76.5625% {
-    opacity: 0;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-}
-@keyframes kenburns-3 {
-  48.4375% {
-    opacity: 1;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-  51.5625% {
-    opacity: 1;
-  }
-  73.4375% {
-    opacity: 1;
-  }
-  76.5625% {
-    opacity: 0;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-}
-@-webkit-keyframes kenburns-4 {
-  73.4375% {
-    opacity: 1;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-  76.5625% {
-    opacity: 1;
-  }
-  98.4375% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-}
-@keyframes kenburns-4 {
-  73.4375% {
-    opacity: 1;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-  76.5625% {
-    opacity: 1;
-  }
-  98.4375% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-}
+    .time {
+      font-size: 1.5em;
+      margin-top: 10px;
+    }
 
+    .typewriter {
+      margin-top: 30px;
+      font-size: 1.2em;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid rgba(255,255,255,0.75);
+      animation: typing 6s steps(40, end), blink 0.75s step-end infinite;
+      width: 0;
+    }
 
-h1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate3d(-50%, -50%, 0);
-          transform: translate3d(-50%, -50%, 0);
-  z-index: 99;
-  text-align: center;
-  font-family: Raleway, sans-serif;
-  font-weight: 300;
-  text-transform: uppercase;
-  background-color: rgba(255, 255, 255, 0.75);
-  box-shadow: 0 1em 2em -1em rgba(0, 0, 0, 0.5);
-  padding: 20px 120px;
-  line-height: 1.5;
-}
-h1 small {
-  display: block;
-  text-transform: lowercase;
-  font-size: .7em;
-}
-h1 small:first-child {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-  padding-bottom: .5em;
-}
-h1 small:last-child {
-  border-top: 1px solid rgba(0, 0, 0, 0.25);
-  padding-top: .5em;
-}
-	.time{
-		margin-top: -40px;
-	}
-</style>
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    .stars {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .star, .heart {
+      position: absolute;
+      animation: float 10s linear infinite;
+      opacity: 0.6;
+    }
+
+    .star {
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .heart {
+      width: 12px;
+      height: 12px;
+      background: pink;
+      transform: rotate(45deg);
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      width: 12px;
+      height: 12px;
+      background: pink;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .heart::before { top: -6px; left: 0; }
+    .heart::after { top: 0; left: -6px; }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
-<!-- 
-这都被你发现啦，，，爱你❤
- /$$                                     
-| $$                                     
-| $$        /$$$$$$  /$$    /$$ /$$$$$$  
-| $$       /$$__  $$|  $$  /$$//$$__  $$ 
-| $$      | $$  \ $$ \  $$/$$/| $$$$$$$$ 
-| $$      | $$  | $$  \  $$$/ | $$_____/ 
-| $$$$$$$$|  $$$$$$/   \  $/  |  $$$$$$$ 
-|________/ \______/     \_/    \_______/ 
-                                                                                
-                                                                                
-                                                                                
+<canvas id="bg"></canvas>
 
--->
-<h1>
-	<div class="wrap">
-	<div class="one" style="font-size: 16px;width: 300px;">李菲菲：</div><br>
-	<div class="time" style="color:white;font-size:12px;"></div>
-	
-	</div>
-	</h1>
-
-<div class="slideshow">
-	<div class="slideshow-image" style="background-image: url('images/1.jpg')"></div><!-- 图片路径 -->
-	<div class="slideshow-image" style="background-image: url('images/2.jpg')"></div>
-	<div class="slideshow-image" style="background-image: url('images/3.jpg')"></div>
-	<div class="slideshow-image" style="background-image: url('images/4.jpg')"></div>
+<div class="center">
+  <h1>李菲菲</h1>
+  <div class="time">正在计算天数...</div>
+  <div class="typewriter">你知道吗？自从遇见你，平凡的日子也开始发光。</div>
 </div>
+
+<audio id="bgm" autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/08/22/audio_342f3434a2.mp3" type="audio/mpeg">
+</audio>
+
+<div class="stars" id="particles"></div>
+
+<script>
+  // 日期计时器
+  var starttime = new Date("2007/03/08");
+  setInterval(function () {
+    var nowtime = new Date();
+    var time = starttime - nowtime;
+    var day = -parseInt(time / 1000 / 60 / 60 / 24);
+    var hour = parseInt(time / 1000 / 60 / 60 % 24 + 22);
+    var minute = parseInt(time / 1000 / 60 % 60);
+    var seconds = parseInt(time / 1000 % 60);
+    document.querySelector('.time').innerHTML = `${day} 天 ${hour} 时 ${minute} 分 ${seconds} 秒`;
+  }, 1000);
+
+  // 爱心+星星粒子
+  function createParticles() {
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+      let el = document.createElement('div');
+      el.className = (Math.random() > 0.5 ? 'star' : 'heart');
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.top = Math.random() * 100 + 'vh';
+      el.style.animationDuration = 5 + Math.random() * 5 + 's';
+      el.style.opacity = Math.random();
+      container.appendChild(el);
+    }
+  }
+  createParticles();
+
+  // 星空背景
+  const canvas = document.getElementById("bg");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const stars = [];
+
+  for (let i = 0; i < 100; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5,
+      d: Math.random() * 0.5
+    });
+  }
+
+  function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "white";
+    ctx.beginPath();
+    for (let i = 0; i < stars.length; i++) {
+      const s = stars[i];
+      ctx.moveTo(s.x, s.y);
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2, true);
+    }
+    ctx.fill();
+    updateStars();
+  }
+
+  function updateStars() {
+    for (let i = 0; i < stars.length; i++) {
+      const s = stars[i];
+      s.y -= s.d;
+      if (s.y < 0) s.y = canvas.height;
+    }
+  }
+
+  setInterval(drawStars, 30);
+
+  // 首次进入弹出祝福
+  setTimeout(() => {
+    Swal.fire({
+      title: '❤️ 纪念日小礼物',
+      text: '感谢你一直在我身边，从2007年到现在，我会一直爱你。',
+      icon: 'info',
+      confirmButtonText: '我也爱你'
+    });
+  }, 1000);
+</script>
 
 </body>
 </html>
-
