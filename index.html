@@ -2,43 +2,94 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>李菲菲 - 背景墙</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>李菲菲 - 不规则拼接背景</title>
 <style>
   * {
     margin: 0; padding: 0; box-sizing: border-box;
   }
   html, body {
     width: 100vw; height: 100vh;
+    overflow: hidden;
     font-family: 'ZCOOL KuaiLe', cursive, sans-serif;
     background: #000;
-    overflow: hidden;
-    user-select: none;
     position: relative;
-    color: #fff;
+    user-select: none;
+    color: white;
   }
 
-  /* 背景墙容器 */
+  /* 容器，铺满全屏 */
   .background-wall {
     position: fixed;
     top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 0;
+    width: 100vw; height: 100vh;
+    overflow: visible;
     z-index: 0;
   }
 
-  /* 每张背景图 */
+  /* 每张图片用绝对定位，随意大小和位置 */
   .background-wall div {
-    background-position: center;
+    position: absolute;
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(255, 20, 147, 0.5);
+    opacity: 0.85;
+    transition: transform 0.5s ease;
   }
 
-  /* 文字容器 */
+  /* 各图片具体位置和大小 */
+  .img1 {
+    top: 5%;
+    left: 5%;
+    width: 30vw;
+    height: 40vh;
+    z-index: 3;
+    transform: rotate(-5deg);
+  }
+  .img2 {
+    top: 20%;
+    left: 28%;
+    width: 25vw;
+    height: 35vh;
+    z-index: 2;
+    transform: rotate(7deg);
+  }
+  .img3 {
+    top: 10%;
+    left: 55%;
+    width: 35vw;
+    height: 50vh;
+    z-index: 4;
+    transform: rotate(-3deg);
+  }
+  .img4 {
+    top: 50%;
+    left: 8%;
+    width: 28vw;
+    height: 38vh;
+    z-index: 5;
+    transform: rotate(4deg);
+  }
+  .img5 {
+    top: 55%;
+    left: 38%;
+    width: 35vw;
+    height: 45vh;
+    z-index: 1;
+    transform: rotate(-7deg);
+  }
+  .img6 {
+    top: 48%;
+    left: 75%;
+    width: 25vw;
+    height: 30vh;
+    z-index: 6;
+    transform: rotate(6deg);
+  }
+
+  /* 文字层级最高，居中 */
   h1 {
     position: fixed;
     top: 50%;
@@ -89,12 +140,12 @@
 <body>
 
 <div class="background-wall">
-  <div style="background-image: url('images/1.jpg');"></div>
-  <div style="background-image: url('images/2.jpg');"></div>
-  <div style="background-image: url('images/3.jpg');"></div>
-  <div style="background-image: url('images/4.jpg');"></div>
-  <div style="background-image: url('images/5.jpg');"></div>
-  <div style="background-image: url('images/6.jpg');"></div>
+  <div class="img1" style="background-image: url('images/1.jpg');"></div>
+  <div class="img2" style="background-image: url('images/2.jpg');"></div>
+  <div class="img3" style="background-image: url('images/3.jpg');"></div>
+  <div class="img4" style="background-image: url('images/4.jpg');"></div>
+  <div class="img5" style="background-image: url('images/5.jpg');"></div>
+  <div class="img6" style="background-image: url('images/6.jpg');"></div>
 </div>
 
 <h1>
