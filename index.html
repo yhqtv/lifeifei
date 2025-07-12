@@ -18,7 +18,6 @@
     color: white;
   }
 
-  /* 容器，铺满全屏 */
   .background-wall {
     position: fixed;
     top: 0; left: 0;
@@ -27,7 +26,6 @@
     z-index: 0;
   }
 
-  /* 每张图片用绝对定位，随意大小和位置 */
   .background-wall div {
     position: absolute;
     background-size: cover;
@@ -36,60 +34,10 @@
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(255, 20, 147, 0.5);
     opacity: 0.85;
-    transition: transform 0.5s ease;
+    transition: all 0.6s ease;
+    cursor: default;
   }
 
-  /* 各图片具体位置和大小 */
-  .img1 {
-    top: 5%;
-    left: 5%;
-    width: 30vw;
-    height: 40vh;
-    z-index: 3;
-    transform: rotate(-5deg);
-  }
-  .img2 {
-    top: 20%;
-    left: 28%;
-    width: 25vw;
-    height: 35vh;
-    z-index: 2;
-    transform: rotate(7deg);
-  }
-  .img3 {
-    top: 10%;
-    left: 55%;
-    width: 35vw;
-    height: 50vh;
-    z-index: 4;
-    transform: rotate(-3deg);
-  }
-  .img4 {
-    top: 50%;
-    left: 8%;
-    width: 28vw;
-    height: 38vh;
-    z-index: 5;
-    transform: rotate(4deg);
-  }
-  .img5 {
-    top: 55%;
-    left: 38%;
-    width: 35vw;
-    height: 45vh;
-    z-index: 1;
-    transform: rotate(-7deg);
-  }
-  .img6 {
-    top: 48%;
-    left: 75%;
-    width: 25vw;
-    height: 30vh;
-    z-index: 6;
-    transform: rotate(6deg);
-  }
-
-  /* 文字层级最高，居中 */
   h1 {
     position: fixed;
     top: 50%;
@@ -123,6 +71,10 @@
 </style>
 <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
 <script>
+  function randomRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
   $(function () {
     const starttime = new Date("2007/03/08");
     setInterval(() => {
@@ -134,18 +86,61 @@
       const seconds = Math.floor((diff / 1000) % 60);
       $(".time").text(`${day}天 ${hour}时 ${minute}分 ${seconds}秒`);
     }, 1000);
+
+    // 图片元素
+    const $imgs = $(".background-wall div");
+    const usedPositions = [];
+
+    $imgs.each(function (index, el) {
+      // 随机宽高（视口宽高的20%-40%）
+      const width = randomRange(20, 40);  // vw
+      const height = randomRange(25, 45); // vh
+
+      // 随机位置，确保不超出屏幕
+      // 为了简单，生成一个位置，再检测是否与之前重叠太多，避免完全遮挡
+      let top, left;
+      let attempts = 0;
+      do {
+        top = randomRange(5, 70);
+        left = randomRange(5, 70);
+        attempts++;
+      } while (
+        usedPositions.some(pos => {
+          // 简单判断两个矩形是否重叠超过一定比例
+          const overlapX = Math.max(0, Math.min(left + width, pos.left + pos.width) - Math.max(left, pos.left));
+          const overlapY = Math.max(0, Math.min(top + height, pos.top + pos.height) - Math.max(top, pos.top));
+          const overlapArea = overlapX * overlapY;
+          const area1 = width * height;
+          const area2 = pos.width * pos.height;
+          return overlapArea > Math.min(area1, area2) * 0.5; // 重叠超过50%认为冲突
+        }) && attempts < 20);
+
+      usedPositions.push({top, left, width, height});
+
+      // 随机旋转角度 -10° 到 +10°
+      const rotate = randomRange(-10, 10);
+
+      // 应用样式
+      $(el).css({
+        top: top + "vh",
+        left: left + "vw",
+        width: width + "vw",
+        height: height + "vh",
+        transform: `rotate(${rotate}deg)`
+      });
+    });
   });
 </script>
 </head>
 <body>
 
 <div class="background-wall">
-  <div class="img1" style="background-image: url('images/1.jpg');"></div>
-  <div class="img2" style="background-image: url('images/2.jpg');"></div>
-  <div class="img3" style="background-image: url('images/3.jpg');"></div>
-  <div class="img4" style="background-image: url('images/4.jpg');"></div>
-  <div class="img5" style="background-image: url('images/5.jpg');"></div>
-  <div class="img6" style="background-image: url('images/6.jpg');"></div>
+  <div style="background-image: url('images/1.jpg');"></div>
+  <div style="background-image: url('images/2.jpg');"></div>
+  <div style="background-image: url('images/3.jpg');"></div>
+  <div style="background-image: url('images/4.jpg');"></div>
+  <div style="background-image: url('images/5.jpg');"></div>
+  <div style="background-image: url('images/6.jpg');"></div>
 </div>
 
 <h1>
